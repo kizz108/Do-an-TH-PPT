@@ -1,12 +1,34 @@
-function y = TichPhanHinhThang(fx, a, b, N)
+function I = TichPhanHinhThang(input1, input2, input3, input4)
+% TICH PHAN HINH THANG
+% Cach 1: TichPhanHinhThang(fx, a, b, N)
+% Cach 2: TichPhanHinhThang(x, y)
 
-h = (b - a) / N;
+    %% ===== XAC DINH KIEU DU LIEU =====
+    if isa(input1,'function_handle')
+        % ===== NHAP HAM SO =====
+        fx = input1;
+        a  = input2;
+        b  = input3;
+        N  = input4;
 
-sum_mid = 0;
-for i = 1:N-1
-    x_i = a + i*h;
-    sum_mid = sum_mid + fx(x_i);
-end
+        h = (b - a)/N;
+        x = a:h:b;
+        y = fx(x);
 
-y = (h/2) * (fx(a) + fx(b) + 2*sum_mid);
+    else
+        % ===== NHAP MANG x, y =====
+        x = input1;
+        y = input2;
+
+        N = length(x) - 1;
+        h = x(2) - x(1);   % gia su x cach deu
+    end
+
+    %% ===== CONG THUC HINH THANG =====
+    sum_mid = 0;
+    for i = 2:N
+        sum_mid = sum_mid + y(i);
+    end
+
+    I = (h/2) * ( y(1) + y(end) + 2*sum_mid );
 end
